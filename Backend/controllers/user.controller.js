@@ -2,8 +2,8 @@ const userModel = require("../models/user.model");
 const userService = require("../services/user.service");
 const { validationResult } = require("express-validator");
 
+// Registering a user
 module.exports.registerUser = async (req, res, next) => {
-  console.log(req.body, "hello");
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -23,4 +23,36 @@ module.exports.registerUser = async (req, res, next) => {
 
   const token = user.generateAuthToken();
   res.status(201).json({ token, user });
+};
+
+// Login User
+module.exports.loginUser = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, password } = req.body;
+
+  const user = await userModel.findOne({ email }).select("+password");
+
+  if (!user) {
+    return res.status(401).json({ messae: "Invalid email or Password" });
+  }
+
+  const isMatch = await user.comparePassword(password);
+
+  if (!isMatch) {
+    return res.status(401).json({ messae: "Invalid email or Password" });
+  }
+
+  const token = user.generateAuthToken();
+
+  res.status(200).json({ token, user });
+};
+
+// Get Profile
+module.exports.getUserProfile = async (req, res, next) => {
+  return res.status(200).json(req.user);
 };
