@@ -1,4 +1,3 @@
-const captianModel = require("../models/captain.model");
 const captainModel = require("../models/captain.model");
 
 module.exports.createCaptain = async ({
@@ -9,7 +8,7 @@ module.exports.createCaptain = async ({
   color,
   plate,
   capacity,
-  veichleType,
+  vehicleType,
 }) => {
   if (
     !firstname ||
@@ -18,23 +17,23 @@ module.exports.createCaptain = async ({
     !color ||
     !capacity ||
     !plate ||
-    !veichleType
+    !vehicleType
   ) {
     throw new Error("All feilds are required");
   }
 
-  const captain = await captianModel.create({
+  const captain = await captainModel.create({
     fullname: {
       firstname,
       lastname,
     },
     email,
     password,
-    veichle: {
+    vehicle: {
       color,
       plate,
       capacity,
-      veichleType,
+      vehicleType,
     },
   });
 
