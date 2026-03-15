@@ -1,6 +1,7 @@
 const captainService = require("../services/captain.service");
 const captainModel = require("../models/captain.model");
 const { validationResult } = require("express-validator");
+const blacklistTokenModel = require("../models/blacklistToken.model");
 
 // REGISTER API
 module.exports.registerCaptain = async (req, res, next) => {
@@ -45,7 +46,7 @@ module.exports.loginCaptain = async (req, res, next) => {
 
   const { email, password } = req.body;
 
-  const captain = await captainModel.findOne({ email });
+  const captain = await captainModel.findOne({ email }).select("+password");
   if (!captain) {
     return res.status(401).json({ messae: "Invalid email or Password" });
   }
@@ -62,4 +63,16 @@ module.exports.loginCaptain = async (req, res, next) => {
   res.status(201).json({ token, captain });
 };
 
-module.exports.logoutCaptain = async (req, res, next) => {};
+module.exports.getCaptainProfile = async (req, res, next) => {
+  return res.status(200).json({ Captain: req.captain });
+};
+
+module.exports.logoutCaptain = async (req, res, next) => {
+  const token = req.cookies?.token || req.headers?.authorization?.split(" ")[1];
+
+  await blacklistTokenModel.create({ token });
+
+  res.clearCookie("token");
+
+  res.status(200).json({ Message: "LogOut Successfully" });
+};
