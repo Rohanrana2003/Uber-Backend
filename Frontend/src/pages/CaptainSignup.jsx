@@ -42,7 +42,9 @@ const CaptainSignup = () => {
             handleSubmit(e);
           }}
         >
-          <h3 className="text-base font-medium mb-2">What's your Name</h3>
+          <h3 className="text-base font-medium mb-2">
+            What's our Captain's Name
+          </h3>
           <div className="flex gap-2 mb-5">
             <input
               required
@@ -62,7 +64,9 @@ const CaptainSignup = () => {
             />
           </div>
 
-          <h3 className="text-base font-medium mb-2">What's your email</h3>
+          <h3 className="text-base font-medium mb-2">
+            What's our Captain's Email
+          </h3>
           <input
             required
             type="email"
@@ -88,7 +92,7 @@ const CaptainSignup = () => {
         </form>
 
         <p className="text-center mb-4">
-          Already a User?{" "}
+          Already a Captain?{" "}
           <Link to="/captain-login" className="text-blue-600">
             Login Here
           </Link>
