@@ -19,17 +19,21 @@ const UserLogin = () => {
       password: password,
     };
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/user/login`,
-      loginUser,
-    );
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/user/login`,
+        loginUser,
+      );
 
-    if (response.status === 200) {
-      const data = response.data;
-      localStorage.setItem("token", data.token);
-      setUser(data.user);
+      if (response.status === 200) {
+        const data = response.data;
+        localStorage.setItem("token", data.token);
+        setUser(data.user);
 
-      navigate("/home");
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log("Login Failed:", error.response?.data || error.message);
     }
 
     setEmail("");

@@ -4,9 +4,9 @@ import UserLogin from "./pages/UserLogin";
 import CaptainLogin from "./pages/CaptainLogin";
 import CaptainSignup from "./pages/CaptainSignup";
 import UserSignup from "./pages/UserSIgnup";
-import { UserDataContext } from "./context/UserContext";
 import Start from "./pages/Start";
 import UserProtectedWrapper from "./pages/UserProtectedWrapper";
+import UserLogout from "./pages/UserLogout";
 
 const App = () => {
   return (
@@ -28,6 +28,15 @@ const App = () => {
           element={
             <UserProtectedWrapper>
               <Home />
+            </UserProtectedWrapper>
+          }
+        />
+
+        <Route
+          path="/user/logout"
+          element={
+            <UserProtectedWrapper>
+              <UserLogout />
             </UserProtectedWrapper>
           }
         />
