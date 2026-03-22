@@ -22,7 +22,7 @@ const CaptainLogin = () => {
         loginData,
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         const data = response.data;
         localStorage.setItem("token", data.token);
         setCaptain(data.captain);
