@@ -18,7 +18,6 @@ const CaptainContext = ({ children }) => {
       <CaptainDataContext.Provider value={value}>
         {children}
       </CaptainDataContext.Provider>
-      ;
     </div>
   );
 };
