@@ -5,10 +5,16 @@ import {
   RiArrowDownWideFill,
 } from "@remixicon/react";
 
-const LookingForDriver = () => {
+const LookingForDriver = ({
+  setLookingForDriverPanel,
+  setWaitingForDriverPanel,
+}) => {
   return (
     <div>
-      <div className="absolute right-5 top-5">
+      <div
+        className="absolute right-5 top-5"
+        onClick={() => setLookingForDriverPanel(false)}
+      >
         <RiArrowDownWideFill />
       </div>
       <h2 className="text-2xl font-semibold mb-5">Looking For Driver</h2>
