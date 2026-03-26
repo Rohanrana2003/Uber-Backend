@@ -1,32 +1,33 @@
-import { useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef, useState } from "react";
+import ConfirmRide from "../components/ConfirmRide";
+import VehiclePanel from "../components/VehiclePanel";
+import WaitingForDriver from "../components/WaitingForDriver";
+import LookingForDriver from "../components/LookingForDriver";
 import { RiArrowDownWideFill, RiUserFill } from "@remixicon/react";
 import LocationSearchPanel from "../components/LocationSearchPanel";
-import VehiclePanel from "../components/VehiclePanel";
-import ConfirmRide from "../components/ConfirmRide";
-import LookingForDriver from "../components/LookingForDriver";
-import WaitingForDriver from "../components/WaitingForDriver";
 
 const Home = () => {
+  // States
   const [pickup, setPickup] = useState("");
-  const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
+  const [destination, setDestination] = useState("");
   const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
-
   const [lookingForDriverPanel, setLookingForDriverPanel] = useState(false);
   const [waitingForDriverPanel, setWaitingForDriverPanel] = useState(false);
+
+  // Refs
+  const panelRef = useRef(null);
+  const confirmRideRef = useRef(null);
+  const vehiclePanelRef = useRef(null);
+  const lookingForDriverRef = useRef(null);
+  const waitingForDriverRef = useRef(null);
 
   const submitHandler = (e) => {
     e.stopPropagation();
   };
-
-  const panelRef = useRef(null);
-  const vehiclePanelRef = useRef(null);
-  const confirmRideRef = useRef(null);
-  const lookingForDriverRef = useRef(null);
-  const waitingForDriverRef = useRef(null);
 
   useGSAP(
     function () {
