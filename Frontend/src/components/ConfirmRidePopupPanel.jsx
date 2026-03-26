@@ -4,6 +4,7 @@ import {
   RiMapPinFill,
   RiMapPinUserFill,
 } from "@remixicon/react";
+import { Link } from "react-router-dom";
 
 const ConfirmRidePopupPanel = ({
   setRidePopupPanel,
@@ -67,12 +68,12 @@ const ConfirmRidePopupPanel = ({
         </div>
 
         {/* Buttons */}
-        <button
-          onClick={() => {}}
-          className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
+        <Link
+          to="/captain-riding"
+          className="w-full text-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
         >
           Confirm
-        </button>
+        </Link>
         <button
           onClick={() => {
             setRidePopupPanel(false);
