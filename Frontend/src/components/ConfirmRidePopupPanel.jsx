@@ -4,13 +4,18 @@ import {
   RiMapPinFill,
   RiMapPinUserFill,
 } from "@remixicon/react";
+import { useState } from "React";
 import { Link } from "react-router-dom";
 
 const ConfirmRidePopupPanel = ({
   setRidePopupPanel,
   setConfirmRidePopupPanel,
 }) => {
-  const submitHandler = () => {};
+  const [OTP, setOTP] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div>
@@ -83,12 +88,14 @@ const ConfirmRidePopupPanel = ({
             <input
               type="text"
               placeholder="Enter OTP"
-              className="bg-[#eee] px-12 py-2 text-base rounded-lg w-full mt-5"
+              value={OTP}
+              onChange={(e) => setOTP(e.target.value)}
+              className="bg-[#eee] px-6 py-4 font-mono  text-lg rounded-lg w-full mt-5"
             />
 
             <Link
               to="/captain-riding"
-              className="w-full text-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
+              className="w-full mb-2 inline-flex justify-center text-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
             >
               Confirm
             </Link>
