@@ -10,6 +10,8 @@ const ConfirmRidePopupPanel = ({
   setRidePopupPanel,
   setConfirmRidePopupPanel,
 }) => {
+  const submitHandler = () => {};
+
   return (
     <div>
       <div
@@ -67,22 +69,40 @@ const ConfirmRidePopupPanel = ({
           </div>
         </div>
 
+        <form>
+          <input type="text" />
+        </form>
+
         {/* Buttons */}
-        <Link
-          to="/captain-riding"
-          className="w-full text-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
-        >
-          Confirm
-        </Link>
-        <button
-          onClick={() => {
-            setRidePopupPanel(false);
-            setConfirmRidePopupPanel(false);
-          }}
-          className="w-full mt-1 bg-red-600 text-white font-semibold p-2 rounded-lg"
-        >
-          Cancel
-        </button>
+        <div className="mt-6 w-full">
+          <form
+            onSubmit={(e) => {
+              submitHandler(e);
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              className="bg-[#eee] px-12 py-2 text-base rounded-lg w-full mt-5"
+            />
+
+            <Link
+              to="/captain-riding"
+              className="w-full text-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
+            >
+              Confirm
+            </Link>
+            <button
+              onClick={() => {
+                setRidePopupPanel(false);
+                setConfirmRidePopupPanel(false);
+              }}
+              className="w-full mt-1 bg-red-600 text-white font-semibold p-2 rounded-lg"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
