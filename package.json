@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@remixicon/react": "^4.9.0",
+    "axios": "^1.15.0",
     "remixicon": "^4.9.1"
   }
 }
