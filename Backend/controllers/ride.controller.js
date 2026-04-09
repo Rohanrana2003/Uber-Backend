@@ -1,4 +1,4 @@
-const rideService = require("../services/maps.service");
+const rideService = require("../services/ride.service");
 const { validationResult } = require("express-validator");
 
 module.exports.createRide = async (req, res, next) => {
@@ -8,11 +8,11 @@ module.exports.createRide = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { userId, pickup, destination, vehicleType } = req.body;
+  const { pickup, destination, vehicleType } = req.body;
 
   try {
     const ride = await rideService.createRide({
-      user: userId,
+      user: req.user?._id,
       pickup,
       destination,
       vehicleType,

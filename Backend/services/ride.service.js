@@ -7,6 +7,13 @@ async function getFare(pickup, destination) {
   }
 
   const distanceTime = await mapService.getDistanceTime(pickup, destination);
+  const distanceInKm = Number(distanceTime?.distance?.value) / 1000;
+  const durationInMinutes = Number(distanceTime?.duration?.value) / 60;
+
+  if (!Number.isFinite(distanceInKm) || !Number.isFinite(durationInMinutes)) {
+    throw new Error("Unable to calculate fare");
+  }
+
   const baseFare = {
     car: 50,
     auto: 30,
@@ -28,16 +35,16 @@ async function getFare(pickup, destination) {
   const fare = {
     car:
       baseFare.car +
-      distanceTime.distance * perKmRate.car +
-      distanceTime.duration * perMinuteRate.car,
+      distanceInKm * perKmRate.car +
+      durationInMinutes * perMinuteRate.car,
     auto:
       baseFare.auto +
-      distanceTime.distance * perKmRate.auto +
-      distanceTime.duration * perMinuteRate.auto,
+      distanceInKm * perKmRate.auto +
+      durationInMinutes * perMinuteRate.auto,
     motorcycle:
       baseFare.motorcycle +
-      distanceTime.distance * perKmRate.motorcycle +
-      distanceTime.duration * perMinuteRate.motorcycle,
+      distanceInKm * perKmRate.motorcycle +
+      durationInMinutes * perMinuteRate.motorcycle,
   };
 
   return fare;
@@ -53,10 +60,18 @@ module.exports.createRide = async ({
     throw new Error("All fields are required");
   }
 
+  if (typeof user !== "string") {
+    user = String(user);
+  }
+
   const fare = await getFare(pickup, destination);
 
-  const ride = rideModel.create({
-    user: user._id,
+  if (fare[vehicleType] == null) {
+    throw new Error("Invalid vehicle type");
+  }
+
+  const ride = await rideModel.create({
+    user,
     pickup,
     destination,
     fare: fare[vehicleType],
