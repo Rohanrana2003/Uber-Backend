@@ -36,9 +36,6 @@ module.exports.getDistanceTime = async (origin, destination) => {
     const response = await axios.get(url);
     const element = response.data.rows[0].elements[0];
 
-    console.log(response, "responseresponse", url, "url");
-    console.log(response, "responseresponse");
-
     return {
       distance: {
         text: element.distance.text,
@@ -52,5 +49,26 @@ module.exports.getDistanceTime = async (origin, destination) => {
     };
   } catch (error) {
     throw error;
+  }
+};
+
+module.exports.getSuggestions = async (input) => {
+  if (!input) {
+    throw new error("Suggestions not found");
+  }
+  const API_KEY = process.env.GOOGLE_MAPS_API;
+  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${API_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+
+    if (response.data.status === "OK") {
+      return response.data.predictions;
+    } else {
+      throw new error("Unable to fetch Suggestions");
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 };
