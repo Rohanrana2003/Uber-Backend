@@ -33,3 +33,19 @@ module.exports.getDistanceTime = async (req, res, next) => {
     res.status(404).json("Distance and Time not found");
   }
 };
+
+module.exports.getSuggestions = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { input } = req.query;
+
+  try {
+    const data = await mapService.getSuggestions(input);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(404).json("No Suggestions found");
+  }
+};
